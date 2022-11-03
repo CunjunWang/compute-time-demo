@@ -32,7 +32,7 @@ public class UploadDataListener implements ReadListener<TemplateRow> {
         log.info("解析到一条数据:{}", JSON.toJSONString(templateRow));
         String departTime = templateRow.getDepartTime();
         if (StringUtils.isEmpty(departTime)) {
-            departTime = "07:00";
+            departTime = "08:00";
         }
         String originAddress = templateRow.getOriginAddress();
         if (StringUtils.isEmpty(originAddress)) {
@@ -54,7 +54,7 @@ public class UploadDataListener implements ReadListener<TemplateRow> {
         ResultRow resultRow = new ResultRow();
         resultRow.setEmployeeName(templateRow.getEmployeeName());
         resultRow.setOriginAddress(templateRow.getOriginAddress());
-        resultRow.setDepartTime(templateRow.getDepartTime() == null ? "07:00" : templateRow.getDepartTime());
+        resultRow.setDepartTime(templateRow.getDepartTime() == null ? "08:00" : templateRow.getDepartTime());
         resultRow.setTimeDiff(routeDiff.getTimeDiff());
         resultRow.setCostDiff(routeDiff.getCostDiff());
         resultRow.setTotalDistanceDiff(routeDiff.getTotalDistanceDiff());

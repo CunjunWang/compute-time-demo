@@ -33,9 +33,9 @@ public class PathDiffUtils {
     public static String computeAndLogTimeDiff(Route routeToNewCampus, Route routeToOldCampus) {
         String timeDiffText = null;
         if (routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes() > 0) {
-            timeDiffText = "增加";
+            timeDiffText = "+";
         } else if (routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes() < 0) {
-            timeDiffText = "减少";
+            timeDiffText = "-";
         }
         String timeDiff = Math.abs(routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes()) + "分钟";
         if (timeDiffText != null) {
@@ -56,9 +56,9 @@ public class PathDiffUtils {
     public static String computeAndLogCostDiff(Route routeToNewCampus, Route routeToOldCampus) {
         String costDiffText = null;
         if (routeToNewCampus.getCostInYuan() - routeToOldCampus.getCostInYuan() > 0) {
-            costDiffText = "增加";
+            costDiffText = "+";
         } else if (routeToNewCampus.getCostInYuan() - routeToOldCampus.getCostInYuan() < 0) {
-            costDiffText = "减少";
+            costDiffText = "-";
         }
         String costDiff = Math.abs(routeToNewCampus.getCostInYuan() - routeToOldCampus.getCostInYuan()) + "元";
         if (costDiffText != null) {
@@ -80,9 +80,9 @@ public class PathDiffUtils {
     public static String computeAndLogTotalDistanceDiff(Route routeToNewCampus, Route routeToOldCampus) {
         String totalDistanceDiffText = null;
         if (routeToNewCampus.getTotalDistanceInKm() - routeToOldCampus.getTotalDistanceInKm() > 0) {
-            totalDistanceDiffText = "增加";
+            totalDistanceDiffText = "+";
         } else if (routeToNewCampus.getTotalDistanceInKm() - routeToOldCampus.getTotalDistanceInKm() < 0) {
-            totalDistanceDiffText = "减少";
+            totalDistanceDiffText = "-";
         }
         String distanceDiff = Math.abs(new BigDecimal(String.valueOf(routeToNewCampus.getTotalDistanceInKm()))
             .subtract(new BigDecimal(String.valueOf(routeToOldCampus.getTotalDistanceInKm())))
@@ -106,9 +106,9 @@ public class PathDiffUtils {
     public static void logWalkingDistanceDiff(Route routeToNewCampus, Route routeToOldCampus) {
         String walkingDistanceText = null;
         if (routeToNewCampus.getWalkingDistanceInKm() - routeToOldCampus.getWalkingDistanceInKm() > 0) {
-            walkingDistanceText = "增加";
+            walkingDistanceText = "+";
         } else if (routeToNewCampus.getWalkingDistanceInKm() - routeToOldCampus.getWalkingDistanceInKm() < 0) {
-            walkingDistanceText = "减少";
+            walkingDistanceText = "-";
         }
         if (walkingDistanceText != null) {
             log.info("步行距离: {} {}km, 到新校区{}, 到老校区{}", walkingDistanceText,

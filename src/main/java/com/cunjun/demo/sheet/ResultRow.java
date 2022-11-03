@@ -17,7 +17,7 @@ public class ResultRow {
     @ExcelProperty("Address")
     private String originAddress;
 
-    @ExcelProperty("Depart time (07:00 by default)")
+    @ExcelProperty("Depart time (08:00 by default)")
     private String departTime;
 
     @ExcelProperty("Time difference (in minutes)")
