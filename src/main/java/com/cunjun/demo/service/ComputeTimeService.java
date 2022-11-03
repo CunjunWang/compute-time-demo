@@ -35,14 +35,14 @@ public class ComputeTimeService {
         // 1. 新校区、老校区地址转成POI，只要做一次
         Poi oldCampusPoi = new Poi("121.534185,31.225888");
 //            convertAddressToPoi(oldCampusDestAddress);
-        log.info("老校区地址: {}, poi: {}", oldCampusDestAddress, oldCampusPoi.toString());
+//        log.info("老校区地址: {}, poi: {}", oldCampusDestAddress, oldCampusPoi.toString());
         Poi newCampusPoi = new Poi("121.481562,31.148379");
 //            convertAddressToPoi(newCampusDestAddress);
-        log.info("新校区地址: {}, poi: {}", newCampusDestAddress, newCampusPoi.toString());
+//        log.info("新校区地址: {}, poi: {}", newCampusDestAddress, newCampusPoi.toString());
 
         // 2. 出发地地址转成POI
         Poi originPoi = convertAddressToPoi(originAddress);
-        log.info("出发地地址: {}, poi: {}", originAddress, originPoi.toString());
+//        log.info("出发地地址: {}, poi: {}", originAddress, originPoi.toString());
 
         // 3. 出发地POI + 新校区 POI 调用路径规划API
         Route routeToNewCampus = computeRoute(departTime, originPoi, newCampusPoi);
