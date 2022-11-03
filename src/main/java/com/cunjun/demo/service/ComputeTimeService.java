@@ -56,11 +56,11 @@ public class ComputeTimeService {
         routeDiff.setRouteToOldCampus(routeToOldCampus);
 
         // 6. 输出diff结果
-        log.info("[{}]从[{}]到新校区[{}]比到老校区[{}]:", departTime, originAddress, newCampusDestAddress, oldCampusDestAddress);
-        PathDiffUtils.computeAndLogTimeDiff(routeToNewCampus, routeToOldCampus);
-        PathDiffUtils.computeAndLogCostDiff(routeToNewCampus, routeToOldCampus);
-        PathDiffUtils.computeAndLogTotalDistanceDiff(routeToNewCampus, routeToOldCampus);
-        PathDiffUtils.logWalkingDistanceDiff(routeToNewCampus, routeToOldCampus);
+//        log.info("[{}]从[{}]到新校区[{}]比到老校区[{}]:", departTime, originAddress, newCampusDestAddress, oldCampusDestAddress);
+//        PathDiffUtils.computeAndLogTimeDiff(routeToNewCampus, routeToOldCampus);
+//        PathDiffUtils.computeAndLogCostDiff(routeToNewCampus, routeToOldCampus);
+//        PathDiffUtils.computeAndLogTotalDistanceDiff(routeToNewCampus, routeToOldCampus);
+//        PathDiffUtils.logWalkingDistanceDiff(routeToNewCampus, routeToOldCampus);
 
         return routeDiff;
     }

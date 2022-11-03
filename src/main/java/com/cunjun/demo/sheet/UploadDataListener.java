@@ -34,7 +34,6 @@ public class UploadDataListener implements ReadListener<TemplateRow> {
 
     @Override
     public void invoke(TemplateRow templateRow, AnalysisContext analysisContext) {
-        log.info("解析到一条数据:{}", JSON.toJSONString(templateRow));
         String departTime = templateRow.getDepartTime();
         if (StringUtils.isEmpty(departTime)) {
             departTime = "08:00";
@@ -92,6 +91,5 @@ public class UploadDataListener implements ReadListener<TemplateRow> {
         }
         return null;
     }
-
 
 }

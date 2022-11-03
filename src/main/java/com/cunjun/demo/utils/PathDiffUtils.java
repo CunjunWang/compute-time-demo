@@ -38,11 +38,11 @@ public class PathDiffUtils {
             timeDiffText = "-";
         }
         String timeDiff = Math.abs(routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes()) + "分钟";
-        if (timeDiffText != null) {
-            log.info("时间: {} {}, 到新校区{}, 到老校区{}", timeDiffText, timeDiff, routeToNewCampus.getDuration(), routeToOldCampus.getDuration());
-        } else {
-            log.info("时间: 相同, 都是{}", routeToNewCampus.getDuration());
-        }
+//        if (timeDiffText != null) {
+//            log.info("时间: {} {}, 到新校区{}, 到老校区{}", timeDiffText, timeDiff, routeToNewCampus.getDuration(), routeToOldCampus.getDuration());
+//        } else {
+//            log.info("时间: 相同, 都是{}", routeToNewCampus.getDuration());
+//        }
         if (timeDiffText == null) {
             return "相同";
         } else {
@@ -61,12 +61,12 @@ public class PathDiffUtils {
             costDiffText = "-";
         }
         String costDiff = Math.abs(routeToNewCampus.getCostInYuan() - routeToOldCampus.getCostInYuan()) + "元";
-        if (costDiffText != null) {
-            log.info("时间: {} {}, 到新校区{}, 到老校区{}", costDiffText, costDiff,
-                routeToNewCampus.getCost(), routeToOldCampus.getCost());
-        } else {
-            log.info("花费: 相同, 都是{}", routeToNewCampus.getCost());
-        }
+//        if (costDiffText != null) {
+//            log.info("时间: {} {}, 到新校区{}, 到老校区{}", costDiffText, costDiff,
+//                routeToNewCampus.getCost(), routeToOldCampus.getCost());
+//        } else {
+//            log.info("花费: 相同, 都是{}", routeToNewCampus.getCost());
+//        }
         if (costDiffText == null) {
             return "相同";
         } else {
@@ -87,12 +87,12 @@ public class PathDiffUtils {
         String distanceDiff = Math.abs(new BigDecimal(String.valueOf(routeToNewCampus.getTotalDistanceInKm()))
             .subtract(new BigDecimal(String.valueOf(routeToOldCampus.getTotalDistanceInKm())))
             .doubleValue()) + "km";
-        if (totalDistanceDiffText != null) {
-            log.info("总距离: {} {}, 到新校区{}, 到老校区{}", totalDistanceDiffText,
-                distanceDiff, routeToNewCampus.getTotalDistanceInKm() + "km", routeToOldCampus.getTotalDistanceInKm() + "km");
-        } else {
-            log.info("总距离: 相同, 都是{}", routeToNewCampus.getTotalDistanceInKm() + "km");
-        }
+//        if (totalDistanceDiffText != null) {
+//            log.info("总距离: {} {}, 到新校区{}, 到老校区{}", totalDistanceDiffText,
+//                distanceDiff, routeToNewCampus.getTotalDistanceInKm() + "km", routeToOldCampus.getTotalDistanceInKm() + "km");
+//        } else {
+//            log.info("总距离: 相同, 都是{}", routeToNewCampus.getTotalDistanceInKm() + "km");
+//        }
         if (totalDistanceDiffText == null) {
             return "相同";
         } else {
@@ -110,15 +110,15 @@ public class PathDiffUtils {
         } else if (routeToNewCampus.getWalkingDistanceInKm() - routeToOldCampus.getWalkingDistanceInKm() < 0) {
             walkingDistanceText = "-";
         }
-        if (walkingDistanceText != null) {
-            log.info("步行距离: {} {}km, 到新校区{}, 到老校区{}", walkingDistanceText,
-                Math.abs(new BigDecimal(String.valueOf(routeToNewCampus.getWalkingDistanceInKm()))
-                    .subtract(new BigDecimal(String.valueOf(routeToOldCampus.getWalkingDistanceInKm())))
-                    .doubleValue()),
-                routeToNewCampus.getWalkingDistanceInKm() + "km", routeToOldCampus.getWalkingDistanceInKm() + "km");
-        } else {
-            log.info("步行距离: 相同, 都是{}", routeToNewCampus.getWalkingDistanceInKm() + "km");
-        }
+//        if (walkingDistanceText != null) {
+//            log.info("步行距离: {} {}km, 到新校区{}, 到老校区{}", walkingDistanceText,
+//                Math.abs(new BigDecimal(String.valueOf(routeToNewCampus.getWalkingDistanceInKm()))
+//                    .subtract(new BigDecimal(String.valueOf(routeToOldCampus.getWalkingDistanceInKm())))
+//                    .doubleValue()),
+//                routeToNewCampus.getWalkingDistanceInKm() + "km", routeToOldCampus.getWalkingDistanceInKm() + "km");
+//        } else {
+//            log.info("步行距离: 相同, 都是{}", routeToNewCampus.getWalkingDistanceInKm() + "km");
+//        }
     }
 
 }

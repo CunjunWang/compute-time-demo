@@ -20,10 +20,10 @@ public class ResultRow {
     @ExcelProperty("Depart time")
     private String departTime;
 
-    @ExcelProperty("Time to old campus")
+    @ExcelProperty("Time to old campus (in minutes)")
     private String timeToOldCampus;
 
-    @ExcelProperty("Time to new campus")
+    @ExcelProperty("Time to new campus (in minutes)")
     private String timeToNewCampus;
 
     @ExcelProperty("Time difference (in minutes)")
@@ -32,19 +32,19 @@ public class ResultRow {
     @ExcelProperty("Estimated arrival time")
     private String estimatedArrivalTime;
 
-    @ExcelProperty("Cost to old campus")
+    @ExcelProperty("Cost to old campus (in Yuan)")
     private String costToOldCampus;
 
-    @ExcelProperty("Cost to new campus")
+    @ExcelProperty("Cost to new campus (in Yuan)")
     private String costToNewCampus;
 
     @ExcelProperty("Cost difference (in Yuan)")
     private String costDiff;
 
-    @ExcelProperty("Distance to old campus")
+    @ExcelProperty("Distance to old campus (in km)")
     private String distanceToOldCampus;
 
-    @ExcelProperty("Distance to new campus")
+    @ExcelProperty("Distance to new campus (in km)")
     private String distanceToNewCampus;
 
     @ExcelProperty("Total distance difference (in km)")
