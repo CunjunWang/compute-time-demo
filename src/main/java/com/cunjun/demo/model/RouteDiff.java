@@ -25,4 +25,10 @@ public class RouteDiff {
      */
     private String totalDistanceDiff;
 
+    // 3. 出发地POI + 新校区 POI 调用路径规划API
+    private Route routeToNewCampus;
+
+    // 4. 出发地POI + 老校区 POI 调用路径规划API
+    private Route routeToOldCampus;
+
 }

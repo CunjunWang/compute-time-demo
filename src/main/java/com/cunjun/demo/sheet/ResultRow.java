@@ -17,14 +17,35 @@ public class ResultRow {
     @ExcelProperty("Address")
     private String originAddress;
 
-    @ExcelProperty("Depart time (08:00 by default)")
+    @ExcelProperty("Depart time")
     private String departTime;
+
+    @ExcelProperty("Time to old campus")
+    private String timeToOldCampus;
+
+    @ExcelProperty("Time to new campus")
+    private String timeToNewCampus;
 
     @ExcelProperty("Time difference (in minutes)")
     private String timeDiff;
 
+    @ExcelProperty("Estimated arrival time")
+    private String estimatedArrivalTime;
+
+    @ExcelProperty("Cost to old campus")
+    private String costToOldCampus;
+
+    @ExcelProperty("Cost to new campus")
+    private String costToNewCampus;
+
     @ExcelProperty("Cost difference (in Yuan)")
     private String costDiff;
+
+    @ExcelProperty("Distance to old campus")
+    private String distanceToOldCampus;
+
+    @ExcelProperty("Distance to new campus")
+    private String distanceToNewCampus;
 
     @ExcelProperty("Total distance difference (in km)")
     private String totalDistanceDiff;

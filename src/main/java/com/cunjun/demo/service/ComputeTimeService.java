@@ -52,6 +52,8 @@ public class ComputeTimeService {
 
         // 5. 路径规划结果做diff
         RouteDiff routeDiff = PathDiffUtils.computeRouteDiff(routeToOldCampus, routeToNewCampus);
+        routeDiff.setRouteToNewCampus(routeToNewCampus);
+        routeDiff.setRouteToOldCampus(routeToOldCampus);
 
         // 6. 输出diff结果
         log.info("[{}]从[{}]到新校区[{}]比到老校区[{}]:", departTime, originAddress, newCampusDestAddress, oldCampusDestAddress);
