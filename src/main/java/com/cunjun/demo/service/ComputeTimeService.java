@@ -3,6 +3,8 @@ package com.cunjun.demo.service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cunjun.demo.model.Poi;
+import com.cunjun.demo.model.Route;
+import com.cunjun.demo.model.RouteDiff;
 import com.cunjun.demo.utils.PathDiffUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -26,14 +28,16 @@ public class ComputeTimeService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void computeTime(String departTime, String originAddress) {
+    public RouteDiff computeTime(String departTime, String originAddress) {
         String oldCampusDestAddress = "上海市浦东新区世纪大道1555号";
         String newCampusDestAddress = "上海市浦东新区高青西路杨思西路口(东方体育中心地铁站出入口步行490米)";
 
         // 1. 新校区、老校区地址转成POI，只要做一次
-        Poi oldCampusPoi = convertAddressToPoi(oldCampusDestAddress);
+        Poi oldCampusPoi = new Poi("121.534185,31.225888");
+//            convertAddressToPoi(oldCampusDestAddress);
         log.info("老校区地址: {}, poi: {}", oldCampusDestAddress, oldCampusPoi.toString());
-        Poi newCampusPoi = convertAddressToPoi(newCampusDestAddress);
+        Poi newCampusPoi = new Poi("121.481562,31.148379");
+//            convertAddressToPoi(newCampusDestAddress);
         log.info("新校区地址: {}, poi: {}", newCampusDestAddress, newCampusPoi.toString());
 
         // 2. 出发地地址转成POI
@@ -47,13 +51,16 @@ public class ComputeTimeService {
         Route routeToOldCampus = computeRoute(departTime, originPoi, oldCampusPoi);
 
         // 5. 路径规划结果做diff
-        log.info("[{}]从[{}]到新校区[{}]比到老校区[{}]:", departTime, originAddress, newCampusDestAddress, oldCampusDestAddress);
-        PathDiffUtils.logTimeDiff(routeToNewCampus, routeToOldCampus);
-        PathDiffUtils.logCostDiff(routeToNewCampus, routeToOldCampus);
-        PathDiffUtils.logTotalDistanceDiff(routeToNewCampus, routeToOldCampus);
-        PathDiffUtils.logWalkingDistanceDiff(routeToNewCampus, routeToOldCampus);
+        RouteDiff routeDiff = PathDiffUtils.computeRouteDiff(routeToOldCampus, routeToNewCampus);
 
         // 6. 输出diff结果
+        log.info("[{}]从[{}]到新校区[{}]比到老校区[{}]:", departTime, originAddress, newCampusDestAddress, oldCampusDestAddress);
+        PathDiffUtils.computeAndLogTimeDiff(routeToNewCampus, routeToOldCampus);
+        PathDiffUtils.computeAndLogCostDiff(routeToNewCampus, routeToOldCampus);
+        PathDiffUtils.computeAndLogTotalDistanceDiff(routeToNewCampus, routeToOldCampus);
+        PathDiffUtils.logWalkingDistanceDiff(routeToNewCampus, routeToOldCampus);
+
+        return routeDiff;
     }
 
     private Poi convertAddressToPoi(String address) {
@@ -75,7 +82,7 @@ public class ComputeTimeService {
         String[] split = location.split(",");
         String lon = split[0];
         String lat = split[1];
-        return Poi.builder().lat(lat).lon(lon).build();
+        return new Poi(lat, lon);
     }
 
     private Route computeRoute(String departTime, Poi originPoi, Poi destPoi) {

@@ -1,4 +1,4 @@
-package com.cunjun.demo.service;
+package com.cunjun.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
