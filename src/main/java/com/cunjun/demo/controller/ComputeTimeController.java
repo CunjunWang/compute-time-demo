@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,6 +38,12 @@ import java.util.List;
 @Api(value = "计算路程时间", tags = {"计算路程时间"})
 public class ComputeTimeController {
 
+    @Value("${com.cunjun.demo.default-depart-time}")
+    private String defaultDepartTime;
+
+    @Value("${com.cunjun.demo.default-depart-city}")
+    private String defaultDepartCity;
+
     @Autowired
     private ComputeTimeService computeTimeService;
 
@@ -44,7 +51,7 @@ public class ComputeTimeController {
     @RequestMapping(value = "/batch/upload", method = RequestMethod.POST)
     @ApiOperation(value = "上传文件批量计算", notes = "上传文件批量计算")
     public String uploadFileAndComputeBatch(MultipartFile file, HttpServletResponse response) throws IOException {
-        UploadDataListener uploadDataListener = new UploadDataListener(computeTimeService);
+        UploadDataListener uploadDataListener = new UploadDataListener(computeTimeService, defaultDepartTime, defaultDepartCity);
         EasyExcel.read(file.getInputStream(), TemplateRow.class, uploadDataListener).sheet().doRead();
 
         List<ResultRow> resultRowList = uploadDataListener.getResultRowList();
