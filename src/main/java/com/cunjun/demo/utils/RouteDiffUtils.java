@@ -15,6 +15,9 @@ public class RouteDiffUtils {
     public static RouteDiff computeRouteDiff(Route routeToOldCampus, Route routeToNewCampus) {
         RouteDiff routeDiff = new RouteDiff();
 
+        routeDiff.setRouteToNewCampus(routeToNewCampus);
+        routeDiff.setRouteToOldCampus(routeToOldCampus);
+
         String timeDiffStr = computeAndLogTimeDiff(routeToNewCampus, routeToOldCampus);
         routeDiff.setTimeDiff(timeDiffStr);
 

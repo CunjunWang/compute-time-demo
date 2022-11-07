@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -27,6 +28,9 @@ public class UploadDataListener implements ReadListener<TemplateRow> {
     @Getter
     private final List<ExceptionRow> exceptionRowList = Lists.newArrayList();
 
+    @Value("${com.cunjun.demo.default-depart-time}")
+    private String defaultDepartTime;
+
     public UploadDataListener(ComputeTimeService computeTimeService) {
         this.computeTimeService = computeTimeService;
     }
@@ -35,15 +39,19 @@ public class UploadDataListener implements ReadListener<TemplateRow> {
     public void invoke(TemplateRow templateRow, AnalysisContext analysisContext) {
         String departTime = templateRow.getDepartTime();
         if (StringUtils.isEmpty(departTime)) {
-            departTime = "08:00";
+            departTime = defaultDepartTime;
         }
-        String originAddress = templateRow.getOriginAddress();
-        if (StringUtils.isEmpty(originAddress)) {
-            log.warn("地址为空");
-            return;
+        String departCity = templateRow.getCity();
+        if (StringUtils.isEmpty(departCity)) {
+            departCity = "上海市";
         }
         try {
-            RouteDiff routeDiff = computeTimeService.computeTime(departTime, originAddress);
+            String originAddress = templateRow.getOriginAddress();
+            if (StringUtils.isEmpty(originAddress)) {
+                log.error("地址信息为空");
+                throw new IllegalArgumentException("员工出发地址为空, 请检查地址");
+            }
+            RouteDiff routeDiff = computeTimeService.computeTime(departTime, departCity, originAddress);
             ResultRow resultRow = convertToResultRow(templateRow, routeDiff);
             resultRowList.add(resultRow);
         } catch (Exception e) {

@@ -79,7 +79,7 @@ public class ComputeTimeController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ApiOperation(value = "计算路程时间", notes = "计算路程时间")
     public ResultData computeTimeSingle(String departTime, String originAddress) {
-        RouteDiff routeDiff = computeTimeService.computeTime(departTime, originAddress);
+        RouteDiff routeDiff = computeTimeService.computeTime(departTime, "上海市", originAddress);
         return ResultData.ok().objectResult(routeDiff);
     }
 
