@@ -1,9 +1,7 @@
 package com.cunjun.demo.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 
 /**

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cunjun.demo.model.Poi;
 import com.cunjun.demo.model.Route;
 import com.cunjun.demo.model.RouteDiff;
-import com.cunjun.demo.utils.PathDiffUtils;
+import com.cunjun.demo.utils.RouteDiffUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -51,7 +51,7 @@ public class ComputeTimeService {
         Route routeToOldCampus = computeRoute(departTime, originPoi, oldCampusPoi);
 
         // 5. 路径规划结果做diff
-        RouteDiff routeDiff = PathDiffUtils.computeRouteDiff(routeToOldCampus, routeToNewCampus);
+        RouteDiff routeDiff = RouteDiffUtils.computeRouteDiff(routeToOldCampus, routeToNewCampus);
         routeDiff.setRouteToNewCampus(routeToNewCampus);
         routeDiff.setRouteToOldCampus(routeToOldCampus);
 

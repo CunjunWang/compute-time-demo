@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * @author Cunjun Wang (zhixin) on 2022/11/3
  */
 @Slf4j
-public class PathDiffUtils {
+public class RouteDiffUtils {
 
     public static RouteDiff computeRouteDiff(Route routeToOldCampus, Route routeToNewCampus) {
         RouteDiff routeDiff = new RouteDiff();
