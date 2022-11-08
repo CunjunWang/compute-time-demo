@@ -1,8 +1,5 @@
 package com.cunjun.demo.utils;
 
-import com.cunjun.demo.model.Stats;
-import com.cunjun.demo.sheet.StatsDisplayRow;
-import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -121,7 +118,6 @@ public class StatsUtils {
         if (CollectionUtils.isEmpty(longList)) {
             throw new IllegalArgumentException("longList cannot be empty");
         }
-        BigDecimal result = BigDecimal.ZERO;
         BigDecimal mean = new BigDecimal(String.valueOf(meanOfLongList(longList)));
         BigDecimal sumOfDiffWithMeanSquared = BigDecimal.ZERO;
         for (Long aLong : longList) {
@@ -141,7 +137,6 @@ public class StatsUtils {
         if (CollectionUtils.isEmpty(doubleList)) {
             throw new IllegalArgumentException("doubleList cannot be empty");
         }
-        BigDecimal result = BigDecimal.ZERO;
         BigDecimal mean = new BigDecimal(String.valueOf(meanOfDoubleList(doubleList)));
         BigDecimal sumOfDiffWithMeanSquared = BigDecimal.ZERO;
         for (Double aDouble : doubleList) {
