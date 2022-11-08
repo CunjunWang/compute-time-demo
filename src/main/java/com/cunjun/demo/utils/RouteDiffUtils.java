@@ -1,7 +1,8 @@
 package com.cunjun.demo.utils;
 
 import com.cunjun.demo.model.Route;
-import com.cunjun.demo.model.RouteDiff;
+import com.cunjun.demo.model.diff.RouteDiff;
+import com.cunjun.demo.model.diff.TimeDiff;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -18,8 +19,9 @@ public class RouteDiffUtils {
         routeDiff.setRouteToNewCampus(routeToNewCampus);
         routeDiff.setRouteToOldCampus(routeToOldCampus);
 
-        String timeDiffStr = computeAndLogTimeDiff(routeToNewCampus, routeToOldCampus);
-        routeDiff.setTimeDiff(timeDiffStr);
+        TimeDiff timeDiff = computeTimeDiff(routeToNewCampus, routeToOldCampus);
+        routeDiff.setTimeDiffDisplay(timeDiff.getTimeDiffDisplay());
+        routeDiff.setTimeDiffInMinutes(timeDiff.getTimeDiffInMinutes());
 
         String costDiffStr = computeAndLogCostDiff(routeToNewCampus, routeToOldCampus);
         routeDiff.setCostDiff(costDiffStr);
@@ -31,26 +33,26 @@ public class RouteDiffUtils {
     }
 
     /**
-     * 输出时间差异
+     * 计算时间差异
      */
-    public static String computeAndLogTimeDiff(Route routeToNewCampus, Route routeToOldCampus) {
+    public static TimeDiff computeTimeDiff(Route routeToNewCampus, Route routeToOldCampus) {
+        TimeDiff result = new TimeDiff();
+
+        long timeDiffInMinutes = Math.abs(routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes());
+        result.setTimeDiffInMinutes(timeDiffInMinutes);
         String timeDiffText = null;
-        if (routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes() > 0) {
+        if (timeDiffInMinutes > 0) {
             timeDiffText = "+";
-        } else if (routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes() < 0) {
+        } else if (timeDiffInMinutes < 0) {
             timeDiffText = "-";
         }
-        String timeDiff = Math.abs(routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes()) + "分钟";
-//        if (timeDiffText != null) {
-//            log.info("时间: {} {}, 到新校区{}, 到老校区{}", timeDiffText, timeDiff, routeToNewCampus.getDuration(), routeToOldCampus.getDuration());
-//        } else {
-//            log.info("时间: 相同, 都是{}", routeToNewCampus.getDuration());
-//        }
         if (timeDiffText == null) {
-            return "相同";
+            result.setTimeDiffDisplay("相同");
         } else {
-            return timeDiffText + timeDiff;
+            result.setTimeDiffDisplay(timeDiffText + timeDiffInMinutes + "分钟");
         }
+
+        return result;
     }
 
     /**

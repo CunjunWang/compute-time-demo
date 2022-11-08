@@ -1,5 +1,6 @@
 package com.cunjun.demo.business;
 
+import com.cunjun.demo.constant.ResultConstants;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -54,22 +55,22 @@ public class ResultData extends HashMap<String, Object> {
     }
 
     public ResultData objectResult(Object value) {
-        super.put(ResultConstant.OBJECT_RESULT_KEY, value);
+        super.put(ResultConstants.OBJECT_RESULT_KEY, value);
         return this;
     }
 
     public ResultData booleanResult(Boolean value) {
-        super.put(ResultConstant.BOOLEAN_RESULT_KEY, value);
+        super.put(ResultConstants.BOOLEAN_RESULT_KEY, value);
         return this;
     }
 
     public ResultData listResult(List<?> value) {
-        super.put(ResultConstant.LIST_RESULT_KEY, value);
+        super.put(ResultConstants.LIST_RESULT_KEY, value);
         return this;
     }
 
     public ResultData integerResult(int value) {
-        super.put(ResultConstant.TOTAL_KEY, value);
+        super.put(ResultConstants.TOTAL_KEY, value);
         return this;
     }
 

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cunjun.demo.model.Poi;
 import com.cunjun.demo.model.Route;
-import com.cunjun.demo.model.RouteDiff;
+import com.cunjun.demo.model.diff.RouteDiff;
 import com.cunjun.demo.utils.RouteDiffUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -49,6 +49,9 @@ public class ComputeTimeService {
         return RouteDiffUtils.computeRouteDiff(routeToOldCampus, routeToNewCampus);
     }
 
+    /**
+     * 地址转换为POI
+     */
     private Poi convertAddressToPoi(String departCity, String address) {
         String keywordSearchPoiUrl = "https://restapi.amap.com/v3/place/text?keywords={address}&city={city}&citylimit=true&key=729bdc43eebc3ba79e7f6664f7133f98";
 
@@ -69,8 +72,10 @@ public class ComputeTimeService {
         return new Poi(lat, lon);
     }
 
+    /**
+     * 路径规划
+     */
     private Route computeRoute(String departTime, String departCity, Poi originPoi, Poi destPoi) {
-//        "https://restapi.amap.com/v3/direction/transit/integrated?origin=116.481499,39.990475&destination=116.465063,39.999538&city=010&output=xml&key=<用户的key>"
         String pathProgrammingUrl = "https://restapi.amap.com/v3/direction/transit/integrated?origin=" + originPoi.toString() +
             "&destination=" + destPoi.toString() + "&city=" + departCity + "&time=" + departTime + "&key=729bdc43eebc3ba79e7f6664f7133f98";
 
@@ -93,21 +98,24 @@ public class ComputeTimeService {
         Route finalRouteResult = new Route();
 
         String cost = (String) bestRouteMap.get("cost");
-        finalRouteResult.setCost("￥" + cost);
-        finalRouteResult.setCostInYuan(Double.parseDouble(cost));
+        finalRouteResult.setCost(cost);
+        finalRouteResult.setCostInYuan(cost);
+        finalRouteResult.setCostDisplay(cost);
 
         String durationInSeconds = (String) bestRouteMap.get("duration");
         finalRouteResult.setDurationInSeconds(Long.parseLong(durationInSeconds));
         finalRouteResult.setDurationInMinutes(durationInSeconds);
-        finalRouteResult.setDuration(durationInSeconds);
+        finalRouteResult.setDurationDisplay(durationInSeconds);
 
         String walkingDistanceInMeters = (String) bestRouteMap.get("walking_distance");
-        finalRouteResult.setWalkingDistance(walkingDistanceInMeters);
+        finalRouteResult.setWalkingDistanceInMeters(walkingDistanceInMeters);
         finalRouteResult.setWalkingDistanceInKm(walkingDistanceInMeters);
+        finalRouteResult.setWalkingDistanceDisplay(walkingDistanceInMeters);
 
         String totalDistanceInMeters = (String) bestRouteMap.get("distance");
-        finalRouteResult.setTotalDistance(totalDistanceInMeters);
+        finalRouteResult.setTotalDistanceInMeters(totalDistanceInMeters);
         finalRouteResult.setTotalDistanceInKm(totalDistanceInMeters);
+        finalRouteResult.setTotalDistanceDisplay(totalDistanceInMeters);
 
         List<LinkedHashMap> routeSegments = (List<LinkedHashMap>) bestRouteMap.get("segments");
 

@@ -1,9 +1,9 @@
-package com.cunjun.demo.business;
+package com.cunjun.demo.constant;
 
 /**
  * @author Cunjun Wang (zhixin) on 2022/7/3
  */
-public class ResultConstant {
+public class ResultConstants {
 
     public static final String BOOLEAN_RESULT_KEY = "result";
 

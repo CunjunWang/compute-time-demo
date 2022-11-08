@@ -1,5 +1,6 @@
-package com.cunjun.demo.model;
+package com.cunjun.demo.model.diff;
 
+import com.cunjun.demo.model.Route;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,12 @@ public class RouteDiff {
     /**
      * 通勤时间差异
      */
-    private String timeDiff;
+    private long timeDiffInMinutes;
+
+    /**
+     * 通勤时间差异
+     */
+    private String timeDiffDisplay;
 
     /**
      * 通勤费用差异

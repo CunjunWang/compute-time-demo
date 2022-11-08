@@ -1,0 +1,26 @@
+spring:
+  banner:
+    charset: UTF-8
+  messages:
+    encoding: UTF-8
+server:
+  port: 9000
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  tomcat:
+    uri-encoding: UTF-8
+swagger:
+  host: localhost:${server.port}
+remote:
+  max-total-connect: 200
+  max-connect-per-route: 100
+  connect-timeout: 5000
+  read-timeout: 30000
+com:
+  cunjun:
+    demo:
+      default-depart-time: 08:00
+      default-depart-city: 上海市

@@ -1,8 +1,9 @@
 package com.cunjun.demo.utils;
 
 import com.alibaba.excel.util.ListUtils;
+import com.cunjun.demo.constant.ComputeTimeConstants;
 import com.cunjun.demo.model.Route;
-import com.cunjun.demo.model.RouteDiff;
+import com.cunjun.demo.model.diff.RouteDiff;
 import com.cunjun.demo.sheet.ExceptionRow;
 import com.cunjun.demo.sheet.ResultRow;
 import com.cunjun.demo.sheet.TemplateRow;
@@ -20,8 +21,8 @@ public class DataRowUtils {
     public static List<TemplateRow> convertToTemplateRow() {
         List<TemplateRow> list = ListUtils.newArrayList();
         TemplateRow templateRow = new TemplateRow();
-        templateRow.setEmployeeName("张三");
-        templateRow.setOriginAddress("上海市黄浦区人民大道200号");
+        templateRow.setEmployeeName(ComputeTimeConstants.TEMPLATE_EMPLOYEE_NAME);
+        templateRow.setOriginAddress(ComputeTimeConstants.TEMPLATE_DEPART_ADDRESS);
         list.add(templateRow);
         return list;
     }
@@ -37,9 +38,9 @@ public class DataRowUtils {
         resultRow.setEmployeeName(templateRow.getEmployeeName());
         resultRow.setOriginAddress(templateRow.getOriginAddress());
         resultRow.setDepartTime(templateRow.getDepartTime() == null ? defaultDepartTime : templateRow.getDepartTime());
-        resultRow.setTimeToOldCampus(routeToOldCampus.getDuration());
-        resultRow.setTimeToNewCampus(routeToNewCampus.getDuration());
-        resultRow.setTimeDiff(routeDiff.getTimeDiff());
+        resultRow.setTimeToOldCampus(routeToOldCampus.getDurationDisplay());
+        resultRow.setTimeToNewCampus(routeToNewCampus.getDurationDisplay());
+        resultRow.setTimeDiff(routeDiff.getTimeDiffDisplay());
         resultRow.setEstimatedArrivalTime(TimeUtils.computeEstimatedArrivalTime(resultRow.getDepartTime(), routeToNewCampus.getDurationInMinutes()));
         resultRow.setCostToOldCampus(routeToOldCampus.getCost());
         resultRow.setCostToNewCampus(routeToNewCampus.getCost());
