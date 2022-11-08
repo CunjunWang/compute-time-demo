@@ -154,36 +154,4 @@ public class StatsUtils {
         return resultBigDecimal.setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
-    public static List<StatsDisplayRow> convertToStatsDisplayRow(Stats stats) {
-        List<StatsDisplayRow> result = Lists.newArrayList();
-        StatsDisplayRow timeDiffStatsRow = StatsDisplayRow.builder()
-            .dataName("Time Difference")
-            .max(stats.getMaxTimeDiffInMinutes())
-            .min(stats.getMinTimeDiffInMinutes())
-            .mean(stats.getMeanTimeDiffInMinutes())
-            .median(stats.getMedianTimeDiffInMinutes())
-            .standardDeviation(stats.getStdTimeDiffInMinutes())
-            .build();
-        result.add(timeDiffStatsRow);
-        StatsDisplayRow costDiffStatsRow = StatsDisplayRow.builder()
-            .dataName("Cost Difference")
-            .max(stats.getMaxCostDiffInYuan())
-            .min(stats.getMinCostDiffInYuan())
-            .mean(stats.getMeanCostDiffInYuan())
-            .median(stats.getMedianCostDiffInYuan())
-            .standardDeviation(stats.getStdCostDiffInYuan())
-            .build();
-        result.add(costDiffStatsRow);
-        StatsDisplayRow distanceDiffStatsRow = StatsDisplayRow.builder()
-            .dataName("Distance Difference")
-            .max(stats.getMaxTotalDistanceDiffInKm())
-            .min(stats.getMinTotalDistanceDiffInKm())
-            .mean(stats.getMeanDistanceDiffInKm())
-            .median(stats.getMedianDistanceDiffInKm())
-            .standardDeviation(stats.getStdDistanceDiffInKm())
-            .build();
-        result.add(distanceDiffStatsRow);
-        return result;
-    }
-
 }

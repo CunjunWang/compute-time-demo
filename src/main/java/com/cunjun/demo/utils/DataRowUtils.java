@@ -3,11 +3,10 @@ package com.cunjun.demo.utils;
 import com.alibaba.excel.util.ListUtils;
 import com.cunjun.demo.constant.ComputeTimeConstants;
 import com.cunjun.demo.model.Route;
+import com.cunjun.demo.model.Stats;
 import com.cunjun.demo.model.diff.RouteDiff;
-import com.cunjun.demo.sheet.ExceptionRow;
-import com.cunjun.demo.sheet.ResultRow;
-import com.cunjun.demo.sheet.StatsRow;
-import com.cunjun.demo.sheet.TemplateRow;
+import com.cunjun.demo.sheet.*;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 
@@ -68,6 +67,41 @@ public class DataRowUtils {
         exceptionRow.setOriginAddress(templateRow.getOriginAddress());
         exceptionRow.setFailReason(e.getMessage());
         return exceptionRow;
+    }
+
+    /**
+     * 构造统计数据结果
+     */
+    public static List<StatsDisplayRow> convertToStatsDisplayRow(Stats stats) {
+        List<StatsDisplayRow> result = Lists.newArrayList();
+        StatsDisplayRow timeDiffStatsRow = StatsDisplayRow.builder()
+            .dataName("Time Difference")
+            .max(stats.getMaxTimeDiffInMinutes())
+            .min(stats.getMinTimeDiffInMinutes())
+            .mean(stats.getMeanTimeDiffInMinutes())
+            .median(stats.getMedianTimeDiffInMinutes())
+            .standardDeviation(stats.getStdTimeDiffInMinutes())
+            .build();
+        result.add(timeDiffStatsRow);
+        StatsDisplayRow costDiffStatsRow = StatsDisplayRow.builder()
+            .dataName("Cost Difference")
+            .max(stats.getMaxCostDiffInYuan())
+            .min(stats.getMinCostDiffInYuan())
+            .mean(stats.getMeanCostDiffInYuan())
+            .median(stats.getMedianCostDiffInYuan())
+            .standardDeviation(stats.getStdCostDiffInYuan())
+            .build();
+        result.add(costDiffStatsRow);
+        StatsDisplayRow distanceDiffStatsRow = StatsDisplayRow.builder()
+            .dataName("Distance Difference")
+            .max(stats.getMaxTotalDistanceDiffInKm())
+            .min(stats.getMinTotalDistanceDiffInKm())
+            .mean(stats.getMeanDistanceDiffInKm())
+            .median(stats.getMedianDistanceDiffInKm())
+            .standardDeviation(stats.getStdDistanceDiffInKm())
+            .build();
+        result.add(distanceDiffStatsRow);
+        return result;
     }
 
 }
