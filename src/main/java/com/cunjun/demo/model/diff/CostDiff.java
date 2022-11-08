@@ -4,20 +4,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @author Cunjun Wang (zhixin) on 2022/11/7
+ * @author Cunjun Wang (zhixin) on 2022/11/8
  */
 @Getter
 @Setter
-public class TimeDiff {
+public class CostDiff {
 
     /**
      * 展示的路程时间差异
      */
-    private String timeDiffDisplay;
+    private String costDiffDisplay;
 
     /**
      * 路程时间差异，分钟
      */
-    private long timeDiffInMinutes;
+    private double costDiffInYuan;
 
 }

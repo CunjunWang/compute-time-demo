@@ -27,7 +27,7 @@ public class ResultRow {
     private String timeToNewCampus;
 
     @ExcelProperty("Time difference (in minutes)")
-    private String timeDiff;
+    private String timeDiffDisplay;
 
     @ExcelProperty("Estimated arrival time")
     private String estimatedArrivalTime;
@@ -39,7 +39,7 @@ public class ResultRow {
     private String costToNewCampus;
 
     @ExcelProperty("Cost difference (in Yuan)")
-    private String costDiff;
+    private String costDiffDisplay;
 
     @ExcelProperty("Distance to old campus (in km)")
     private String distanceToOldCampus;
@@ -48,6 +48,6 @@ public class ResultRow {
     private String distanceToNewCampus;
 
     @ExcelProperty("Total distance difference (in km)")
-    private String totalDistanceDiff;
+    private String totalDistanceDiffDisplay;
 
 }

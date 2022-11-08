@@ -1,6 +1,8 @@
 package com.cunjun.demo.utils;
 
 import com.cunjun.demo.model.Route;
+import com.cunjun.demo.model.diff.CostDiff;
+import com.cunjun.demo.model.diff.DistanceDiff;
 import com.cunjun.demo.model.diff.RouteDiff;
 import com.cunjun.demo.model.diff.TimeDiff;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +25,14 @@ public class RouteDiffUtils {
         routeDiff.setTimeDiffDisplay(timeDiff.getTimeDiffDisplay());
         routeDiff.setTimeDiffInMinutes(timeDiff.getTimeDiffInMinutes());
 
-        String costDiffStr = computeAndLogCostDiff(routeToNewCampus, routeToOldCampus);
-        routeDiff.setCostDiff(costDiffStr);
+        CostDiff costDiff = computeCostDiff(routeToNewCampus, routeToOldCampus);
+        routeDiff.setCostDiffDisplay(costDiff.getCostDiffDisplay());
+        routeDiff.setCostDiffInYuan(costDiff.getCostDiffInYuan());
 
-        String totalDistanceDiffStr = computeAndLogTotalDistanceDiff(routeToNewCampus, routeToOldCampus);
-        routeDiff.setTotalDistanceDiff(totalDistanceDiffStr);
+        DistanceDiff totalDistanceDiff = computeTotalDistanceDiff(routeToNewCampus, routeToOldCampus);
+        routeDiff.setTotalDistanceDiffDisplay(totalDistanceDiff.getDistanceDiffDisplay());
+        routeDiff.setTotalDistanceDiffInMeters(totalDistanceDiff.getDistanceDiffInMeters());
+        routeDiff.setTotalDistanceDiffInKm(totalDistanceDiff.getDistanceDiffInKm());
 
         return routeDiff;
     }
@@ -38,92 +43,70 @@ public class RouteDiffUtils {
     public static TimeDiff computeTimeDiff(Route routeToNewCampus, Route routeToOldCampus) {
         TimeDiff result = new TimeDiff();
 
-        long timeDiffInMinutes = Math.abs(routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes());
-        result.setTimeDiffInMinutes(timeDiffInMinutes);
+        long rawTimeDiff = routeToNewCampus.getDurationInMinutes() - routeToOldCampus.getDurationInMinutes();
+        result.setTimeDiffInMinutes(rawTimeDiff);
         String timeDiffText = null;
-        if (timeDiffInMinutes > 0) {
+        if (rawTimeDiff > 0) {
             timeDiffText = "+";
-        } else if (timeDiffInMinutes < 0) {
+        } else if (rawTimeDiff < 0) {
             timeDiffText = "-";
         }
         if (timeDiffText == null) {
             result.setTimeDiffDisplay("相同");
         } else {
-            result.setTimeDiffDisplay(timeDiffText + timeDiffInMinutes + "分钟");
+            result.setTimeDiffDisplay(timeDiffText + Math.abs(rawTimeDiff) + "分钟");
         }
 
         return result;
     }
 
     /**
-     * 输出通勤费差异
+     * 计算通勤费用差异
      */
-    public static String computeAndLogCostDiff(Route routeToNewCampus, Route routeToOldCampus) {
+    public static CostDiff computeCostDiff(Route routeToNewCampus, Route routeToOldCampus) {
+        CostDiff result = new CostDiff();
+
+        double rawCostDiffInYuan = routeToNewCampus.getCostInYuan() - routeToOldCampus.getCostInYuan();
+        result.setCostDiffInYuan(rawCostDiffInYuan);
         String costDiffText = null;
-        if (routeToNewCampus.getCostInYuan() - routeToOldCampus.getCostInYuan() > 0) {
+        if (rawCostDiffInYuan > 0) {
             costDiffText = "+";
-        } else if (routeToNewCampus.getCostInYuan() - routeToOldCampus.getCostInYuan() < 0) {
+        } else if (rawCostDiffInYuan < 0) {
             costDiffText = "-";
         }
-        String costDiff = Math.abs(routeToNewCampus.getCostInYuan() - routeToOldCampus.getCostInYuan()) + "元";
-//        if (costDiffText != null) {
-//            log.info("时间: {} {}, 到新校区{}, 到老校区{}", costDiffText, costDiff,
-//                routeToNewCampus.getCost(), routeToOldCampus.getCost());
-//        } else {
-//            log.info("花费: 相同, 都是{}", routeToNewCampus.getCost());
-//        }
         if (costDiffText == null) {
-            return "相同";
+            result.setCostDiffDisplay("相同");
         } else {
-            return costDiffText + costDiff;
+            result.setCostDiffDisplay(costDiffText + "￥" + Math.abs(rawCostDiffInYuan) + "元");
         }
+
+        return result;
     }
 
     /**
-     * 输出总路程差异
+     * 计算总路程差异
      */
-    public static String computeAndLogTotalDistanceDiff(Route routeToNewCampus, Route routeToOldCampus) {
+    public static DistanceDiff computeTotalDistanceDiff(Route routeToNewCampus, Route routeToOldCampus) {
+        DistanceDiff result = new DistanceDiff();
+
+        double rawDistanceDiff = new BigDecimal(String.valueOf(routeToNewCampus.getTotalDistanceInKm()))
+            .subtract(new BigDecimal(String.valueOf(routeToOldCampus.getTotalDistanceInKm())))
+            .doubleValue();
+        result.setDistanceDiffInKm(rawDistanceDiff);
+        result.setDistanceDiffInMeters(routeToNewCampus.getTotalDistanceInMeters() - routeToOldCampus.getTotalDistanceInMeters());
         String totalDistanceDiffText = null;
-        if (routeToNewCampus.getTotalDistanceInKm() - routeToOldCampus.getTotalDistanceInKm() > 0) {
+        if (rawDistanceDiff > 0) {
             totalDistanceDiffText = "+";
-        } else if (routeToNewCampus.getTotalDistanceInKm() - routeToOldCampus.getTotalDistanceInKm() < 0) {
+        } else if (rawDistanceDiff < 0) {
             totalDistanceDiffText = "-";
         }
-        String distanceDiff = Math.abs(new BigDecimal(String.valueOf(routeToNewCampus.getTotalDistanceInKm()))
-            .subtract(new BigDecimal(String.valueOf(routeToOldCampus.getTotalDistanceInKm())))
-            .doubleValue()) + "km";
-//        if (totalDistanceDiffText != null) {
-//            log.info("总距离: {} {}, 到新校区{}, 到老校区{}", totalDistanceDiffText,
-//                distanceDiff, routeToNewCampus.getTotalDistanceInKm() + "km", routeToOldCampus.getTotalDistanceInKm() + "km");
-//        } else {
-//            log.info("总距离: 相同, 都是{}", routeToNewCampus.getTotalDistanceInKm() + "km");
-//        }
         if (totalDistanceDiffText == null) {
-            return "相同";
+            result.setDistanceDiffDisplay("相同");
         } else {
-            return totalDistanceDiffText + distanceDiff;
+            result.setDistanceDiffDisplay(totalDistanceDiffText + Math.abs(rawDistanceDiff) + "km");
         }
-    }
 
-    /**
-     * 输出步行距离差异
-     */
-    public static void logWalkingDistanceDiff(Route routeToNewCampus, Route routeToOldCampus) {
-        String walkingDistanceText = null;
-        if (routeToNewCampus.getWalkingDistanceInKm() - routeToOldCampus.getWalkingDistanceInKm() > 0) {
-            walkingDistanceText = "+";
-        } else if (routeToNewCampus.getWalkingDistanceInKm() - routeToOldCampus.getWalkingDistanceInKm() < 0) {
-            walkingDistanceText = "-";
-        }
-//        if (walkingDistanceText != null) {
-//            log.info("步行距离: {} {}km, 到新校区{}, 到老校区{}", walkingDistanceText,
-//                Math.abs(new BigDecimal(String.valueOf(routeToNewCampus.getWalkingDistanceInKm()))
-//                    .subtract(new BigDecimal(String.valueOf(routeToOldCampus.getWalkingDistanceInKm())))
-//                    .doubleValue()),
-//                routeToNewCampus.getWalkingDistanceInKm() + "km", routeToOldCampus.getWalkingDistanceInKm() + "km");
-//        } else {
-//            log.info("步行距离: 相同, 都是{}", routeToNewCampus.getWalkingDistanceInKm() + "km");
-//        }
+        return result;
     }
 
 }

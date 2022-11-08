@@ -24,17 +24,36 @@ public class RouteDiff {
     /**
      * 通勤费用差异
      */
-    private String costDiff;
+    private double costDiffInYuan;
+
+    /**
+     * 展示的通勤费用差异
+     */
+    private String costDiffDisplay;
+
+    /**
+     * 总路程差异，米
+     */
+    private Long totalDistanceDiffInMeters;
+
+    /**
+     * 总路程差异，km
+     */
+    private double totalDistanceDiffInKm;
 
     /**
      * 总路程差异
      */
-    private String totalDistanceDiff;
+    private String totalDistanceDiffDisplay;
 
-    // 3. 出发地POI + 新校区 POI 调用路径规划API
+    /**
+     * 到新校区的路线
+     */
     private Route routeToNewCampus;
 
-    // 4. 出发地POI + 老校区 POI 调用路径规划API
+    /**
+     * 到老校区的路线
+     */
     private Route routeToOldCampus;
 
 }

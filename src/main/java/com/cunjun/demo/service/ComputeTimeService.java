@@ -66,10 +66,7 @@ public class ComputeTimeService {
         if (StringUtils.isEmpty(location)) {
             throw new IllegalArgumentException("未查询到地址的坐标信息, 请核对地址");
         }
-        String[] split = location.split(",");
-        String lon = split[0];
-        String lat = split[1];
-        return new Poi(lat, lon);
+        return new Poi(location);
     }
 
     /**

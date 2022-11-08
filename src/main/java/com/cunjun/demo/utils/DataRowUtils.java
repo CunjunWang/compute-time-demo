@@ -6,6 +6,7 @@ import com.cunjun.demo.model.Route;
 import com.cunjun.demo.model.diff.RouteDiff;
 import com.cunjun.demo.sheet.ExceptionRow;
 import com.cunjun.demo.sheet.ResultRow;
+import com.cunjun.demo.sheet.StatsRow;
 import com.cunjun.demo.sheet.TemplateRow;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class DataRowUtils {
     /**
      * 构造计算数据结果
      */
-    public static ResultRow convertToResultRow(String defaultDepartTime, TemplateRow templateRow, RouteDiff routeDiff) {
+    public static ResultRow convertToResultRow(String defaultDepartTime, TemplateRow templateRow, RouteDiff routeDiff, List<StatsRow> statsRowList) {
         Route routeToNewCampus = routeDiff.getRouteToNewCampus();
         Route routeToOldCampus = routeDiff.getRouteToOldCampus();
 
@@ -40,14 +41,21 @@ public class DataRowUtils {
         resultRow.setDepartTime(templateRow.getDepartTime() == null ? defaultDepartTime : templateRow.getDepartTime());
         resultRow.setTimeToOldCampus(routeToOldCampus.getDurationDisplay());
         resultRow.setTimeToNewCampus(routeToNewCampus.getDurationDisplay());
-        resultRow.setTimeDiff(routeDiff.getTimeDiffDisplay());
+        resultRow.setTimeDiffDisplay(routeDiff.getTimeDiffDisplay());
         resultRow.setEstimatedArrivalTime(TimeUtils.computeEstimatedArrivalTime(resultRow.getDepartTime(), routeToNewCampus.getDurationInMinutes()));
         resultRow.setCostToOldCampus(routeToOldCampus.getCost());
         resultRow.setCostToNewCampus(routeToNewCampus.getCost());
-        resultRow.setCostDiff(routeDiff.getCostDiff());
+        resultRow.setCostDiffDisplay(routeDiff.getCostDiffDisplay());
         resultRow.setDistanceToOldCampus(routeToOldCampus.getTotalDistanceInKm() + "km");
         resultRow.setDistanceToNewCampus(routeToNewCampus.getTotalDistanceInKm() + "km");
-        resultRow.setTotalDistanceDiff(routeDiff.getTotalDistanceDiff());
+        resultRow.setTotalDistanceDiffDisplay(routeDiff.getTotalDistanceDiffDisplay());
+
+        StatsRow statsRow = new StatsRow();
+        statsRow.setTimeDiffInMinutes(routeDiff.getTimeDiffInMinutes());
+        statsRow.setCostDiffInYuan(routeDiff.getCostDiffInYuan());
+        statsRow.setTotalDistanceDiffInKm(routeDiff.getTotalDistanceDiffInKm());
+        statsRowList.add(statsRow);
+
         return resultRow;
     }
 
