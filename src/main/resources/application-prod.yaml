@@ -1,4 +1,4 @@
 server:
   port: 9000
 swagger:
-  host: 101.133.138.145:${server.port}
+  host: 43.143.243.169:${server.port}
