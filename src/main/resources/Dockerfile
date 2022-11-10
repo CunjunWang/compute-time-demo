@@ -1,5 +1,5 @@
 # 添加 Java 8 镜像来源
-FROM java:8
+FROM openjdk:8
 
 # 添加参数
 ARG JAR_FILE
