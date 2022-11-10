@@ -13,7 +13,7 @@ server:
   tomcat:
     uri-encoding: UTF-8
 swagger:
-  host: localhost:${server.port}
+  host: 0.0.0.0:${server.port}
 remote:
   max-total-connect: 200
   max-connect-per-route: 100
